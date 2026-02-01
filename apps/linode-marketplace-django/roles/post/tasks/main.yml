@@ -1,4 +1,10 @@
--
+---
+# Install Addons if requested
+- name: Add addons
+  import_role:
+    name: addons
+  when: add_ons != ['none']
+
 # motd and creds gen
 - name: copy MOTD template to /etc/motd
   template:
@@ -14,6 +20,9 @@
     content: |
       Sudo username: {{ username }}
       Sudo password: {{ password }}
-      postgres Django DB password: {{ postgres_db_password }}
+
+      Postgres user: {{ postgres_db_user }}
+      Postgres Django DB password: {{ postgres_db_password }}
+      
       Django user: {{ django_user }}
       Django password: {{ django_password }}
